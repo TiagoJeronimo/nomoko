@@ -6,10 +6,6 @@ import scss from './styles.module.scss';
 const Slider = ({ minValue, maxValue, handleSliderChange }) => {
   const [sliderValue, setSliderValue] = useState([minValue, maxValue]);
 
-  function valuetext(value) {
-    return `${value}°C`;
-  }
-
   const handleChange = (event, newValue) => {
     setSliderValue(newValue);
     handleSliderChange(newValue);
@@ -17,16 +13,15 @@ const Slider = ({ minValue, maxValue, handleSliderChange }) => {
 
   return (
     <div className={scss['o-slider__wrapper']}>
-      <div>{sliderValue[0]}</div>
-      <div>{sliderValue[1]}</div>
+      <div className={scss['o-slider__values']}>
+        <h3 className={scss['o-slider__title']}>Price</h3>
+        {`${sliderValue[0]} - ${sliderValue[1]}`}
+      </div>
       <MUISlider
         value={sliderValue}
         min={minValue}
         max={maxValue}
         onChange={handleChange}
-        valueLabelDisplay="auto"
-        aria-labelledby="range-slider"
-        getAriaValueText={valuetext}
       />
     </div>
   );

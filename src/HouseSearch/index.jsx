@@ -53,17 +53,17 @@ const HouseSearch = () => {
   };
 
   return (
-    <>
-      <div className={scss['p-houseSearch__title']}>
-        MAPPAGE
-      </div>
+    <div className={scss['p-houseSearch']}>
+      <h2 className={scss['p-houseSearch__title']}>
+        {`${filteredPropertiesData ? filteredPropertiesData.length : 0} available properties`}
+      </h2>
       <div className={scss['p-houseSearch__mainSection']}>
         <Filters propertiesData={propertiesData} handleFiltersChange={handleFiltersChange} />
         <Map
           propertiesData={filteredPropertiesData}
         />
       </div>
-    </>
+    </div>
   );
 };
 

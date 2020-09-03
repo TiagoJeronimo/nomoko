@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MUISwitch from '@material-ui/core/Switch';
+import MUICheckbox from '@material-ui/core/Checkbox';
 
 import scss from './styles.module.scss';
 
@@ -14,7 +14,12 @@ const Switch = ({ handleSwitchChange }) => {
   return (
     <div className={scss['o-switch__wrapper']}>
       <FormControlLabel
-        control={<MUISwitch checked={isChecked} onChange={handleChange} />}
+        control={(
+          <MUICheckbox
+            checked={isChecked}
+            onChange={handleChange}
+          />
+        )}
         label="Parking"
       />
     </div>

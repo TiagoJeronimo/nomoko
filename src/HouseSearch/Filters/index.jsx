@@ -40,7 +40,7 @@ const Filters = ({ propertiesData, handleFiltersChange }) => {
 
   return (
     <div className={scss['o-filter__wrapper']}>
-      FILTROSSS
+      <h3>Search filters</h3>
       <Switch handleSwitchChange={handleParkingChange} />
       <Select options={buildingTypes} handleSelectChange={handleBuildingChange} />
       {highestPrice !== null
