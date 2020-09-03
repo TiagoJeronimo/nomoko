@@ -13,6 +13,6 @@ export const formatPropertiesData = (properties) => {
     coordinates: formatCoordinates(Coordinates),
     buildingType: BuildingType,
     price: properties['Price/m^2'],
-    parking: Boolean(Parking)
+    parking: Boolean(Parking),
   });
-}
+};

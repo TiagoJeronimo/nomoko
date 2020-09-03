@@ -1,11 +1,13 @@
-import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React, { useState } from 'react';
+import {
+  GoogleMap, LoadScript, Marker, InfoWindow,
+} from '@react-google-maps/api';
 
 import keys from '../../enums/keys';
 
 const mapContainerStyle = {
-  height: '400px',
-  width: '800px',
+  height: '800px',
+  // width: '800px',
 };
 
 const center = {
@@ -13,13 +15,14 @@ const center = {
   lng: 8.5391825,
 };
 
-const position = {
-  lat: 47.3686498,
-  lng: 8.5391825,
-};
+// const position = {
+//   lat: 47.3686498,
+//   lng: 8.5391825,
+// };
 
-const Map = () => {
-  const [map, setMap] = React.useState(null);
+const Map = ({ propertiesData }) => {
+  const [map, setMap] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   // const onLoad = React.useCallback((map) => {
   //   const bounds = new window.google.maps.LatLngBounds();
@@ -31,22 +34,72 @@ const Map = () => {
     setMap(null);
   }, []);
 
+  const onMarkerClick = (props, marker) => {
+    console.log('event', props);
+    console.log('latLng', marker);
+
+    console.log('props.latLng', { id: marker, position: props.latLng });
+
+    setSelectedMarker({ id: marker, position: props.latLng });
+
+    // this.setState({
+    //   activeMarker: marker,
+    //   selectedPlace: props,
+    //   showingInfoWindow: true
+    // });
+  };
+
+  const onCloseClick = () => {
+    setSelectedMarker(null);
+  };
+
   return (
     <LoadScript
-      googleMapsApiKey={keys.GOOGLE_MAPS_KEY}
-    // googleMapsApiKey=""
+      // googleMapsApiKey={keys.GOOGLE_MAPS_KEY}
+      googleMapsApiKey=""
     >
       <GoogleMap
         id="marker-example"
         mapContainerStyle={mapContainerStyle}
-        zoom={10}
+        zoom={12}
         center={center}
         // onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        <Marker
-          position={position}
-        />
+        {propertiesData && propertiesData.map(({ coordinates }, index) => (
+          <Marker
+            id="babab"
+            key={index}
+            name="aa"
+            position={{ lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1]) }}
+            onClick={(event) => onMarkerClick(event, index)}
+          />
+        ))}
+
+        {selectedMarker && (
+          <InfoWindow
+            position={{ lat: selectedMarker.position.lat(), lng: selectedMarker.position.lng() }}
+            onCloseClick={onCloseClick}
+          >
+            <div>
+              <div>
+                BuildingType:
+                {' '}
+                {propertiesData[selectedMarker.id].buildingType}
+              </div>
+              <div>
+                Parking:
+                {' '}
+                {propertiesData[selectedMarker.id].parking ? 'yes' : 'no'}
+              </div>
+              <div>
+                Price/m^2:
+                {' '}
+                {propertiesData[selectedMarker.id].price}
+              </div>
+            </div>
+          </InfoWindow>
+        )}
       </GoogleMap>
     </LoadScript>
   );
