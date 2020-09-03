@@ -7,7 +7,7 @@ import keys from '../../enums/keys';
 
 const mapContainerStyle = {
   height: '800px',
-  // width: '800px',
+  width: '100%',
 };
 
 const center = {
@@ -35,18 +35,7 @@ const Map = ({ propertiesData }) => {
   }, []);
 
   const onMarkerClick = (props, marker) => {
-    console.log('event', props);
-    console.log('latLng', marker);
-
-    console.log('props.latLng', { id: marker, position: props.latLng });
-
     setSelectedMarker({ id: marker, position: props.latLng });
-
-    // this.setState({
-    //   activeMarker: marker,
-    //   selectedPlace: props,
-    //   showingInfoWindow: true
-    // });
   };
 
   const onCloseClick = () => {
@@ -76,7 +65,7 @@ const Map = ({ propertiesData }) => {
           />
         ))}
 
-        {selectedMarker && (
+        {selectedMarker && propertiesData[selectedMarker.id] && (
           <InfoWindow
             position={{ lat: selectedMarker.position.lat(), lng: selectedMarker.position.lng() }}
             onCloseClick={onCloseClick}
