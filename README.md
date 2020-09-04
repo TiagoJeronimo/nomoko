@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available scripts and how to run
 
-In the project directory, after instaling the project using `npm i` you can run:
+In the project directory, after installing the project using `npm i` you can run:
 
 ### `npm start`
 
@@ -18,24 +18,24 @@ Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 
-## Some comments and decisions
+# Comments and decisions
 
-# Styling:
-For the sake of simplicity, I used the material-ui package to create the filters inputs (Multiple Select, Slider, and Checkbox)
+## Styling:
+For the sake of simplicity, I used the [material-ui](https://material-ui.com/) package to create the filters inputs (Multiple Select, Slider, and Checkbox)
 
-# Testing:
+## Testing:
 I think tests are important, and although I didn't create tests for all the components, you can check some examples in the folder `components`, there I implemented tests for each component using `jest` and `@testing-library`. I also added a Snapshot test in the App folder just as an example.
 
-# Reading and formating the CSV file
-To read the file I used the javascript `fetch` function and to format the file in a code-readable object I used the package `papaparse`, I found some alternatives for the last one, but `papaparse` seemed to be the simplest.
+## Reading and formating the CSV file:
+I used the javascript `fetch` function to read the file and the package `papaparse` to format the file into a code-readable object. I found some alternatives for the last one, but `papaparse` seemed to be the simplest.
 
-# Internationalisation
-For that, I used `i18n` and I added a dropdown button upper right side of the page where you can switch between English and German.
+## Internationalisation:
+I used `i18n` for internationalisation and I added a dropdown button in the upper right side of the page where you can switch between English and German.
 Note: As I don't really know German I used Google Translate to translate the text, hopefully the translation is correct.
 
-# Google Maps
-Since Google Maps requires a key to correctly display a map I got a Google Cloud Platform key to for it. The key only has 300$ of usage (which is the trial limit) hopefully is enough.
-Note: the key is accessible in the GitHub although I'm aware that we shouldn't have easy accessibly keys especially in a public repo. But in this case, it shouldn't be a problem.
+## Google Maps:
+Since Google Maps requires a key to correctly display a map, I got a Google Cloud Platform key for it. The key only has 300$ of usage (which is the trial limit) which hopefully is enough.
+Note: Although the key is accessible in GitHub, I'm aware that we shouldn't have easy accessibly keys especially in a public repo. But in this case, it shouldn't be a problem.
 
-# Responsiveness
-Although not required I added some media queries to help the app to be a bit more responsive friendly.
+## Responsiveness:
+Although not required I added some media queries to help the app to be a bit more responsive.
