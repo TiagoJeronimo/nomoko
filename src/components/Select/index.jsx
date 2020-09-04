@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,15 +10,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import { makeStyles } from '@material-ui/core/styles';
 import scss from './styles.module.scss';
+import { dataToInternationalisationKey } from '../../utils/formating';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   formControl: {
+    // minWidth: 120
+    margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300,
   },
 }));
 
-const Select = ({ handleSelectChange, options }) => {
+const Select = ({ label, handleSelectChange, options }) => {
+  const { t } = useTranslation('houseSearch');
   const [selectedValues, setSelectedValues] = useState([]);
   const classes = useStyles();
 
@@ -28,27 +32,24 @@ const Select = ({ handleSelectChange, options }) => {
   };
 
   return (
-    <div className={scss['o-select__wrapper']}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-checkbox-label">Building Type</InputLabel>
-        <MUISelect
-          labelId="demo-mutiple-checkbox-label"
-          id="demo-mutiple-checkbox"
-          multiple
-          value={selectedValues}
-          onChange={handleChange}
-          input={<Input />}
-          renderValue={(selected) => selected.join(', ')}
-        >
-          {options.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={selectedValues.includes(name)} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </MUISelect>
-      </FormControl>
-    </div>
+    <FormControl>
+      <InputLabel id="selectLabel">{label}</InputLabel>
+      <MUISelect
+        labelId="selectLabel"
+        multiple
+        value={selectedValues}
+        onChange={handleChange}
+        renderValue={(selected) => selected.map((value) => t(`filters.${dataToInternationalisationKey(value)}`)).join(', ')}
+        MenuProps={{ variant: 'menu' }}
+      >
+        {options.map((name) => (
+          <MenuItem key={name} value={name}>
+            <Checkbox checked={selectedValues.includes(name)} />
+            <ListItemText primary={t(`filters.${dataToInternationalisationKey(name)}`)} />
+          </MenuItem>
+        ))}
+      </MUISelect>
+    </FormControl>
   );
 };
 

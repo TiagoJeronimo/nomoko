@@ -1,0 +1,23 @@
+{
+  "availableProperties": "available properties",
+  "language": "Language",
+  "yes": "Yes",
+  "no": "No",
+  "filters": {
+    "searchFilters": "Search filters",
+    "buildingType": "Building Type",
+    "residential": "Residential",
+    "offices": "Offices",
+    "commercial": "Commercial",
+    "industrial": "Industrial",
+    "mixeduse": "Mixed use",
+    "price": "Price",
+    "parking": "Parking",
+    "other": "Other"
+  },
+  "map": {
+    "buildingType": "Building Type",
+    "parking": "Parking",
+    "price": "Price"
+  }
+}

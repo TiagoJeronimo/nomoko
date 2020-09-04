@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import {
   GoogleMap, LoadScript, Marker, InfoWindow,
 } from '@react-google-maps/api';
+import { useTranslation } from 'react-i18next';
 
+import { dataToInternationalisationKey } from '../../utils/formating';
 import keys from '../../enums/keys';
+import scss from './styles.module.scss';
 
 const mapContainerStyle = {
   height: '800px',
@@ -15,20 +18,11 @@ const center = {
   lng: 8.5391825,
 };
 
-// const position = {
-//   lat: 47.3686498,
-//   lng: 8.5391825,
-// };
-
 const Map = ({ propertiesData }) => {
   const [map, setMap] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
-  // const onLoad = React.useCallback((map) => {
-  //   const bounds = new window.google.maps.LatLngBounds();
-  //   map.fitBounds(bounds);
-  //   setMap(map);
-  // }, []);
+  const { t } = useTranslation('houseSearch');
 
   const onUnmount = React.useCallback((map) => {
     setMap(null);
@@ -52,7 +46,6 @@ const Map = ({ propertiesData }) => {
         mapContainerStyle={mapContainerStyle}
         zoom={12}
         center={center}
-        // onLoad={onLoad}
         onUnmount={onUnmount}
       >
         {propertiesData && propertiesData.map(({ coordinates }, index) => (
@@ -70,22 +63,28 @@ const Map = ({ propertiesData }) => {
             position={{ lat: selectedMarker.position.lat(), lng: selectedMarker.position.lng() }}
             onCloseClick={onCloseClick}
           >
-            <div>
-              <div>
-                BuildingType:
-                {' '}
-                {propertiesData[selectedMarker.id].buildingType}
-              </div>
-              <div>
-                Parking:
-                {' '}
-                {propertiesData[selectedMarker.id].parking ? 'yes' : 'no'}
-              </div>
-              <div>
-                Price/m^2:
-                {' '}
-                {propertiesData[selectedMarker.id].price}
-              </div>
+            <div className={scss['o-map__infoWindow']}>
+              <h4 className={scss['o-map__infoWindow__infoDescription']}>
+                {t('map.buildingType')}
+                {': '}
+                <span className={scss['o-map__infoWindow__infoValue']}>
+                  {t(`filters.${dataToInternationalisationKey(propertiesData[selectedMarker.id].buildingType)}`)}
+                </span>
+              </h4>
+              <h4 className={scss['o-map__infoWindow__infoDescription']}>
+                {t('map.price')}
+                {'/m^2: '}
+                <span className={scss['o-map__infoWindow__infoValue']}>
+                  {propertiesData[selectedMarker.id].price}
+                </span>
+              </h4>
+              <h4 className={scss['o-map__infoWindow__infoDescription']}>
+                {t('map.parking')}
+                {': '}
+                <span className={scss['o-map__infoWindow__infoValue']}>
+                  {propertiesData[selectedMarker.id].parking ? t('yes') : t('no')}
+                </span>
+              </h4>
             </div>
           </InfoWindow>
         )}

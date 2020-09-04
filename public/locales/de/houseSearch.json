@@ -1,0 +1,22 @@
+{
+  "availableProperties": "verfügbare Eigenschaften",
+  "language": "Sprache",
+  "yes": "Ja",
+  "no": "Nein",
+  "filters": {
+    "searchFilters": "Suchfilter",
+    "buildingType": "Gebäudetyp",
+    "residential": "Wohn",
+    "offices": "Büros",
+    "commercial": "Kommerziell",
+    "industrial": "Industriell",
+    "mixeduse": "Gemischte Benutzung",
+    "price": "Preis",
+    "parking": "Parken"
+  },
+  "map": {
+    "buildingType": "Gebäudetyp",
+    "parking": "Parken",
+    "price": "Preis"
+  }
+}

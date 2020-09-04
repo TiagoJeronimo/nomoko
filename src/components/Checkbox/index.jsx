@@ -4,15 +4,16 @@ import MUICheckbox from '@material-ui/core/Checkbox';
 
 import scss from './styles.module.scss';
 
-const Switch = ({ handleSwitchChange }) => {
+const Checkbox = ({ formTitle, label, handleCheckboxChange }) => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = () => {
     setIsChecked(!isChecked);
-    handleSwitchChange(!isChecked);
+    handleCheckboxChange(!isChecked);
   };
 
   return (
-    <div className={scss['o-switch__wrapper']}>
+    <div>
+      <h3 className={scss['o-checkbox__title']}>{formTitle}</h3>
       <FormControlLabel
         control={(
           <MUICheckbox
@@ -20,10 +21,10 @@ const Switch = ({ handleSwitchChange }) => {
             onChange={handleChange}
           />
         )}
-        label="Parking"
+        label={label}
       />
     </div>
   );
 };
 
-export default Switch;
+export default Checkbox;

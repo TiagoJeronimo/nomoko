@@ -1,6 +1,12 @@
 .p-houseSearch {
   margin: 20px 100px;
 
+  &__titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15px;
+  }
+
   &__title {
     color: blue;
   }

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import scss from './styles.module.scss';
-import Switch from '../../components/Switch';
+import Checkbox from '../../components/Checkbox';
 import Select from '../../components/Select';
 import Slider from '../../components/Slider';
 
 const Filters = ({ propertiesData, handleFiltersChange }) => {
+  const { t } = useTranslation('houseSearch');
   const [filterValues, setFilterValues] = useState({});
   const [buildingTypes, setBuildingTypes] = useState([]);
   const [highestPrice, setHighestPrice] = useState(null);
@@ -40,11 +42,28 @@ const Filters = ({ propertiesData, handleFiltersChange }) => {
 
   return (
     <div className={scss['o-filter__wrapper']}>
-      <h3>Search filters</h3>
-      <Switch handleSwitchChange={handleParkingChange} />
-      <Select options={buildingTypes} handleSelectChange={handleBuildingChange} />
-      {highestPrice !== null
-        && <Slider minValue={0} maxValue={Math.ceil(highestPrice)} handleSliderChange={handlePriceChange} />}
+      <h3>{t('filters.searchFilters')}</h3>
+      <form className={scss['o-filter__innerWrapper']}>
+        <Select
+          label={t('filters.buildingType')}
+          options={buildingTypes}
+          handleSelectChange={handleBuildingChange}
+        />
+        {highestPrice !== null
+          && (
+            <Slider
+              formTitle={t('filters.price')}
+              minValue={0}
+              maxValue={Math.ceil(highestPrice)}
+              handleSliderChange={handlePriceChange}
+            />
+          )}
+        <Checkbox
+          formTitle={t('filters.other')}
+          label={t('filters.parking')}
+          handleCheckboxChange={handleParkingChange}
+        />
+      </form>
     </div>
   );
 };

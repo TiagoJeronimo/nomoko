@@ -1,0 +1,13 @@
+.o-map {
+  &__infoWindow {
+    padding-right: 12px;
+
+    &__infoDescription {
+      margin: 10px;
+    }
+
+    &__infoValue {
+      color: gray;
+    }
+  }
+}
