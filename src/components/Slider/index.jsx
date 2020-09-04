@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { number, string, func } from 'prop-types';
 import MUISlider from '@material-ui/core/Slider';
+import { useDebouncedCallback } from 'use-debounce';
 
 import scss from './styles.module.scss';
 
@@ -8,9 +10,16 @@ const Slider = ({
 }) => {
   const [sliderValue, setSliderValue] = useState([minValue, maxValue]);
 
+  const [sliderDebounce] = useDebouncedCallback(
+    (newValue) => {
+      handleSliderChange(newValue);
+    },
+    200,
+  );
+
   const handleChange = (event, newValue) => {
     setSliderValue(newValue);
-    handleSliderChange(newValue);
+    sliderDebounce(newValue);
   };
 
   return (
@@ -25,6 +34,18 @@ const Slider = ({
       />
     </div>
   );
+};
+
+Slider.propTypes = {
+  formTitle: string.isRequired,
+  minValue: number,
+  maxValue: number,
+  handleSliderChange: func.isRequired,
+};
+
+Slider.defaultProps = {
+  minValue: 0,
+  maxValue: 0,
 };
 
 export default Slider;

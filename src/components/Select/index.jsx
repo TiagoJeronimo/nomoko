@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { arrayOf, string, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,22 +8,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MUISelect from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { makeStyles } from '@material-ui/core/styles';
-import scss from './styles.module.scss';
 import { dataToInternationalisationKey } from '../../utils/formating';
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    // minWidth: 120
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-}));
 
 const Select = ({ label, handleSelectChange, options }) => {
   const { t } = useTranslation('houseSearch');
   const [selectedValues, setSelectedValues] = useState([]);
-  const classes = useStyles();
 
   const handleChange = (event) => {
     const filterValue = event.target.value;
@@ -51,6 +40,12 @@ const Select = ({ label, handleSelectChange, options }) => {
       </MUISelect>
     </FormControl>
   );
+};
+
+Select.propTypes = {
+  label: string.isRequired,
+  options: arrayOf(string).isRequired,
+  handleSelectChange: func.isRequired,
 };
 
 export default Select;

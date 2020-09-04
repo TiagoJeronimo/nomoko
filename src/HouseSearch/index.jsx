@@ -16,7 +16,6 @@ const HouseSearch = () => {
   const [filteredPropertiesData, setFilteredPropertiesData] = useState(null);
 
   const handleLanguageChange = (language) => {
-    console.log('language', language);
     i18n.changeLanguage(language);
   };
 
@@ -27,7 +26,9 @@ const HouseSearch = () => {
 
       Papa.parse(data, {
         complete(results) {
-          const formatedResults = results.data.map((propertyData) => formatPropertiesData(propertyData));
+          const formatedResults = results.data.map(
+            (propertyData) => formatPropertiesData(propertyData),
+          );
           setPropertiesData(formatedResults);
           setFilteredPropertiesData(formatedResults);
         },
@@ -46,7 +47,8 @@ const HouseSearch = () => {
         return null;
       }
 
-      if (filters.buildingType?.length > 0 && !filters.buildingType.includes(property.buildingType)) {
+      if (filters.buildingType?.length > 0
+        && !filters.buildingType.includes(property.buildingType)) {
         return null;
       }
 

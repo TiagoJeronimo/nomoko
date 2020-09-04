@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { string, func } from 'prop-types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MUICheckbox from '@material-ui/core/Checkbox';
 
@@ -25,6 +26,12 @@ const Checkbox = ({ formTitle, label, handleCheckboxChange }) => {
       />
     </div>
   );
+};
+
+Checkbox.propTypes = {
+  formTitle: string.isRequired,
+  label: string.isRequired,
+  handleCheckboxChange: func.isRequired,
 };
 
 export default Checkbox;

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+  arrayOf, shape, func, string, bool,
+} from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import scss from './styles.module.scss';
@@ -15,7 +18,9 @@ const Filters = ({ propertiesData, handleFiltersChange }) => {
   useEffect(() => {
     if (!propertiesData) return;
 
-    const distincBuildingTypes = [...new Set(propertiesData.map((property) => property.buildingType))];
+    const distincBuildingTypes = [...new Set(propertiesData.map(
+      (property) => property.buildingType,
+    ))];
     setBuildingTypes(distincBuildingTypes);
 
     const highestPriceValue = Math.max(...propertiesData.map((property) => property.price));
@@ -66,6 +71,21 @@ const Filters = ({ propertiesData, handleFiltersChange }) => {
       </form>
     </div>
   );
+};
+
+Filters.propTypes = {
+  propertiesData: arrayOf(
+    shape({
+      buildingType: string,
+      price: string,
+      parking: bool,
+    }),
+  ),
+  handleFiltersChange: func.isRequired,
+};
+
+Filters.defaultProps = {
+  propertiesData: null,
 };
 
 export default Filters;

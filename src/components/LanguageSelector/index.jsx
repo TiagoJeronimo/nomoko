@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -28,6 +29,10 @@ const LanguageSelector = ({ handleLanguageChange }) => {
       </Select>
     </FormControl>
   );
+};
+
+LanguageSelector.propTypes = {
+  handleLanguageChange: func.isRequired,
 };
 
 export default LanguageSelector;

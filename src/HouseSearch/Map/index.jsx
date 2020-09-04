@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import {
+  shape, arrayOf, string, bool,
+} from 'prop-types';
+import {
   GoogleMap, LoadScript, Marker, InfoWindow,
 } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +12,7 @@ import keys from '../../enums/keys';
 import scss from './styles.module.scss';
 
 const mapContainerStyle = {
-  height: '800px',
+  height: '600px',
   width: '100%',
 };
 
@@ -19,14 +22,9 @@ const center = {
 };
 
 const Map = ({ propertiesData }) => {
-  const [map, setMap] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
   const { t } = useTranslation('houseSearch');
-
-  const onUnmount = React.useCallback((map) => {
-    setMap(null);
-  }, []);
 
   const onMarkerClick = (props, marker) => {
     setSelectedMarker({ id: marker, position: props.latLng });
@@ -46,13 +44,13 @@ const Map = ({ propertiesData }) => {
         mapContainerStyle={mapContainerStyle}
         zoom={12}
         center={center}
-        onUnmount={onUnmount}
+        className={scss['o-map']}
       >
         {propertiesData && propertiesData.map(({ coordinates }, index) => (
           <Marker
-            id="babab"
+            id={`marker + ${coordinates[0]}`}
             key={index}
-            name="aa"
+            name={`marker + ${coordinates[0]}`}
             position={{ lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1]) }}
             onClick={(event) => onMarkerClick(event, index)}
           />
@@ -91,6 +89,20 @@ const Map = ({ propertiesData }) => {
       </GoogleMap>
     </LoadScript>
   );
+};
+
+Map.propTypes = {
+  propertiesData: arrayOf(
+    shape({
+      buildingType: string,
+      price: string,
+      parking: bool,
+    }),
+  ),
+};
+
+Map.defaultProps = {
+  propertiesData: null,
 };
 
 export default Map;
