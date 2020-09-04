@@ -1,10 +1,10 @@
 import React from 'react';
-import HouseSearch from '../HouseSearch';
+import PropertiesSearch from '../screens/PropertiesSearch';
 
 function App() {
   return (
     <div className="App">
-      <HouseSearch />
+      <PropertiesSearch />
     </div>
   );
 }

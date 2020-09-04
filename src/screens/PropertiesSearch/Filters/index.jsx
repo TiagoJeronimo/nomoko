@@ -5,9 +5,9 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import scss from './styles.module.scss';
-import Checkbox from '../../components/Checkbox';
-import Select from '../../components/Select';
-import Slider from '../../components/Slider';
+import Checkbox from '../../../components/Checkbox';
+import Select from '../../../components/Select';
+import Slider from '../../../components/Slider';
 
 const Filters = ({ propertiesData, handleFiltersChange }) => {
   const { t } = useTranslation('houseSearch');

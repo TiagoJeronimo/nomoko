@@ -16,3 +16,5 @@ export const formatPropertiesData = (properties) => {
     parking: Boolean(Parking),
   });
 };
+
+export default formatPropertiesData;

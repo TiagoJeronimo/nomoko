@@ -17,7 +17,12 @@ const LanguageSelector = ({ handleLanguageChange }) => {
 
   return (
     <FormControl variant="outlined">
-      <InputLabel id="languageSelectorLabel">{t('language')}</InputLabel>
+      <InputLabel
+        id="languageSelectorLabel"
+        data-testId="languageSelector-label"
+      >
+        {t('language')}
+      </InputLabel>
       <Select
         labelId="languageSelectorLabel"
         value={language}

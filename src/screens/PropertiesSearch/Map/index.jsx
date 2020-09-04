@@ -7,9 +7,16 @@ import {
 } from '@react-google-maps/api';
 import { useTranslation } from 'react-i18next';
 
-import { dataToInternationalisationKey } from '../../utils/formating';
-import keys from '../../enums/keys';
+import { dataToInternationalisationKey } from '../../../utils/formating';
+import keys from '../../../enums/keys';
 import scss from './styles.module.scss';
+import PropertiesTypes from '../../../enums/PropertiesTypes';
+
+const propertiesInfo = [
+  PropertiesTypes.BUILDING_TYPE,
+  PropertiesTypes.PRICE,
+  PropertiesTypes.PARKING,
+];
 
 const mapContainerStyle = {
   height: '600px',
@@ -32,6 +39,18 @@ const Map = ({ propertiesData }) => {
 
   const onCloseClick = () => {
     setSelectedMarker(null);
+  };
+
+  const getPropertyValue = (property) => {
+    if (property === PropertiesTypes.PARKING) {
+      return propertiesData[selectedMarker.id].parking ? t('yes') : t('no');
+    }
+
+    if (property === PropertiesTypes.PRICE) {
+      return propertiesData[selectedMarker.id].price;
+    }
+
+    return t(`filters.${dataToInternationalisationKey(propertiesData[selectedMarker.id][property])}`);
   };
 
   return (
@@ -62,27 +81,15 @@ const Map = ({ propertiesData }) => {
             onCloseClick={onCloseClick}
           >
             <div className={scss['o-map__infoWindow']}>
-              <h4 className={scss['o-map__infoWindow__infoDescription']}>
-                {t('map.buildingType')}
-                {': '}
-                <span className={scss['o-map__infoWindow__infoValue']}>
-                  {t(`filters.${dataToInternationalisationKey(propertiesData[selectedMarker.id].buildingType)}`)}
-                </span>
-              </h4>
-              <h4 className={scss['o-map__infoWindow__infoDescription']}>
-                {t('map.price')}
-                {'/m^2: '}
-                <span className={scss['o-map__infoWindow__infoValue']}>
-                  {propertiesData[selectedMarker.id].price}
-                </span>
-              </h4>
-              <h4 className={scss['o-map__infoWindow__infoDescription']}>
-                {t('map.parking')}
-                {': '}
-                <span className={scss['o-map__infoWindow__infoValue']}>
-                  {propertiesData[selectedMarker.id].parking ? t('yes') : t('no')}
-                </span>
-              </h4>
+              {propertiesInfo.map((property) => (
+                <h4 className={scss['o-map__infoWindow__infoDescription']}>
+                  {t(`map.${property}`)}
+                  {': '}
+                  <span className={scss['o-map__infoWindow__infoValue']}>
+                    {getPropertyValue(property)}
+                  </span>
+                </h4>
+              ))}
             </div>
           </InfoWindow>
         )}

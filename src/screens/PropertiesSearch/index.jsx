@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 import { useTranslation, withTranslation } from 'react-i18next';
 
-import i18n from '../i18n';
+import i18n from '../../i18n';
 import scss from './styles.module.scss';
 import Map from './Map';
 import Filters from './Filters';
-import CSVFile from '../assets/documents/properties_f.csv';
+import CSVFile from '../../assets/documents/properties_f.csv';
 import { formatPropertiesData } from './utils';
-import LanguageSelector from '../components/LanguageSelector';
+import LanguageSelector from '../../components/LanguageSelector';
 
-const HouseSearch = () => {
+const PropertiesSearch = () => {
   const { t } = useTranslation('houseSearch');
   const [propertiesData, setPropertiesData] = useState(null);
   const [filteredPropertiesData, setFilteredPropertiesData] = useState(null);
@@ -80,4 +80,4 @@ const HouseSearch = () => {
   );
 };
 
-export default withTranslation()(HouseSearch);
+export default withTranslation()(PropertiesSearch);
