@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  shape, arrayOf, string, bool,
+  shape, arrayOf, string, bool, func, number
 } from 'prop-types';
 import {
   GoogleMap, LoadScript, Marker, InfoWindow,
@@ -28,18 +28,13 @@ const center = {
   lng: 8.5391825,
 };
 
-const Map = ({ propertiesData }) => {
-  const [selectedMarker, setSelectedMarker] = useState(null);
-
+const Map = ({
+  propertiesData,
+  handleMarkerClick,
+  handleCloseMarker,
+  selectedMarker
+}) => {
   const { t } = useTranslation('houseSearch');
-
-  const onMarkerClick = (event, marker) => {
-    setSelectedMarker({ id: marker, position: event.latLng });
-  };
-
-  const onCloseClick = () => {
-    setSelectedMarker(null);
-  };
 
   const getPropertyValue = (property) => {
     if (property === PropertiesTypes.PARKING) {
@@ -70,14 +65,14 @@ const Map = ({ propertiesData }) => {
             key={index}
             name={`marker + ${coordinates[0]}`}
             position={{ lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1]) }}
-            onClick={(event) => onMarkerClick(event, index)}
+            onClick={(event) => handleMarkerClick(event, index)}
           />
         ))}
 
         {selectedMarker && propertiesData[selectedMarker.id] && (
           <InfoWindow
             position={{ lat: selectedMarker.position.lat(), lng: selectedMarker.position.lng() }}
-            onCloseClick={onCloseClick}
+            onCloseClick={handleCloseMarker}
           >
             <div className={scss['o-map__infoWindow']}>
               {propertiesInfo.map((property) => (
@@ -105,6 +100,12 @@ Map.propTypes = {
       parking: bool,
     }),
   ),
+  handleMarkerClick: func,
+  handleCloseMarker: func,
+  selectedMarker: shape({
+    id: number,
+    position: shape({}),
+  }),
 };
 
 Map.defaultProps = {

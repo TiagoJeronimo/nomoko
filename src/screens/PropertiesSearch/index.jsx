@@ -14,6 +14,7 @@ const PropertiesSearch = () => {
   const { t } = useTranslation('houseSearch');
   const [propertiesData, setPropertiesData] = useState(null);
   const [filteredPropertiesData, setFilteredPropertiesData] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
@@ -41,6 +42,14 @@ const PropertiesSearch = () => {
     fetchDataFromCSV();
   }, [setPropertiesData, setFilteredPropertiesData]);
 
+  const handleMarkerClick = (event, marker) => {
+    setSelectedMarker({ id: marker, position: event.latLng });
+  };
+
+  const handleCloseMarker = () => {
+    setSelectedMarker(null);
+  };
+
   const handleFiltersChange = (filters) => {
     const filteredProperties = propertiesData.filter((property) => {
       if (filters.parking && !property.parking) {
@@ -60,6 +69,7 @@ const PropertiesSearch = () => {
     });
 
     setFilteredPropertiesData(filteredProperties);
+    handleCloseMarker();
   };
 
   return (
@@ -74,6 +84,9 @@ const PropertiesSearch = () => {
         <Filters propertiesData={propertiesData} handleFiltersChange={handleFiltersChange} />
         <Map
           propertiesData={filteredPropertiesData}
+          handleMarkerClick={handleMarkerClick}
+          handleCloseMarker={handleCloseMarker}
+          selectedMarker={selectedMarker}
         />
       </div>
     </div>

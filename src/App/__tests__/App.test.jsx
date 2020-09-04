@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from '..';
 
 test('renders the App', () => {
-  render(<App />);
-  expect(screen).toMatchSnapshot();
+  const app = render(<App />);
+  expect(app).toMatchSnapshot();
 });
