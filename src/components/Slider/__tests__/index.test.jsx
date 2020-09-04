@@ -22,7 +22,6 @@ describe('<Slider />', () => {
   });
 
   it('renders the Slider', () => {
-    screen.debug();
     const listbox = document.querySelector('span[aria-orientation=horizontal]');
     if (!listbox) throw new Error('listbox not found');
 

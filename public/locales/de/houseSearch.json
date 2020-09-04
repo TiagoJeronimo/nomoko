@@ -12,7 +12,8 @@
     "industrial": "Industriell",
     "mixeduse": "Gemischte Benutzung",
     "price": "Preis",
-    "parking": "Parken"
+    "parking": "Parken",
+    "other": "Andere"
   },
   "map": {
     "buildingType": "Gebäudetyp",

@@ -5,6 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Languages from '../../enums/Languages';
 
 const LanguageSelector = ({ handleLanguageChange }) => {
   const { t } = useTranslation('houseSearch');
@@ -19,7 +20,7 @@ const LanguageSelector = ({ handleLanguageChange }) => {
     <FormControl variant="outlined">
       <InputLabel
         id="languageSelectorLabel"
-        data-testId="languageSelector-label"
+        data-testid="languageSelector-label"
       >
         {t('language')}
       </InputLabel>
@@ -29,8 +30,8 @@ const LanguageSelector = ({ handleLanguageChange }) => {
         onChange={handleChange}
         label={t('language')}
       >
-        <MenuItem value="en">EN</MenuItem>
-        <MenuItem value="de">DE</MenuItem>
+        <MenuItem value="en">{Languages.EN}</MenuItem>
+        <MenuItem value="de">{Languages.DE}</MenuItem>
       </Select>
     </FormControl>
   );

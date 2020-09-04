@@ -6,17 +6,18 @@ i18n
   .use(initReactI18next)
   .use(backend)
   .init({
-    fallbackLng: ['en'],
+    fallbackLng: ['en', 'de'],
     debug: true,
     defaultNS: 'houseSearch',
     whitelist: ['en', 'de'],
+    lng: 'en',
     ns: 'houseSearch',
     load: 'currentOnly',
     interpolation: {
       escapeValue: false, // not needed for react
     },
     react: {
-      useSuspense: false,
+      useSuspense: true,
     },
   });
 

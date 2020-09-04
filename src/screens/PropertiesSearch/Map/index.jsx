@@ -33,8 +33,8 @@ const Map = ({ propertiesData }) => {
 
   const { t } = useTranslation('houseSearch');
 
-  const onMarkerClick = (props, marker) => {
-    setSelectedMarker({ id: marker, position: props.latLng });
+  const onMarkerClick = (event, marker) => {
+    setSelectedMarker({ id: marker, position: event.latLng });
   };
 
   const onCloseClick = () => {
@@ -55,17 +55,16 @@ const Map = ({ propertiesData }) => {
 
   return (
     <LoadScript
-      // googleMapsApiKey={keys.GOOGLE_MAPS_KEY}
-      googleMapsApiKey=""
+      googleMapsApiKey={keys.GOOGLE_MAPS_KEY}
     >
       <GoogleMap
-        id="marker-example"
+        id="map-propertieSearch"
         mapContainerStyle={mapContainerStyle}
         zoom={12}
         center={center}
         className={scss['o-map']}
       >
-        {propertiesData && propertiesData.map(({ coordinates }, index) => (
+        {propertiesData?.map(({ coordinates }, index) => (
           <Marker
             id={`marker + ${coordinates[0]}`}
             key={index}
@@ -82,7 +81,7 @@ const Map = ({ propertiesData }) => {
           >
             <div className={scss['o-map__infoWindow']}>
               {propertiesInfo.map((property) => (
-                <h4 className={scss['o-map__infoWindow__infoDescription']}>
+                <h4 key={property} className={scss['o-map__infoWindow__infoDescription']}>
                   {t(`map.${property}`)}
                   {': '}
                   <span className={scss['o-map__infoWindow__infoValue']}>
